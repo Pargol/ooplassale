@@ -4,12 +4,12 @@ class Computer{
 
     private string brand;
     private string model;
-    private int price;
+    private double price;
     private long SN;
 
     private static int count = 0;
 
-    public Computer(string brand, string model, int price, long SN){
+    public Computer(string brand, string model, double price, long SN){
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -25,7 +25,7 @@ class Computer{
         return model;
     }
 
-    public int getPrice(){
+    public double getPrice(){
         return price;
     }
 
@@ -41,7 +41,7 @@ class Computer{
         this.model = model;
     }
 
-    public void setPrice(int price){
+    public void setPrice(double price){
         this.price = price;
     }
 
@@ -65,7 +65,7 @@ class Computer{
 
 class ComputerStore{
 
-    const string password = "PASSWORD";
+    const string PASSWORD = "PASSWORD";
 
     static Computer[] inventory;
 
@@ -90,12 +90,69 @@ class ComputerStore{
                 
                 while(!int.TryParse(Console.ReadLine(),out choice) || choice<1 || choice > 5){
                     Console.WriteLine("Invalid Input Try again");
-                    continue;
+
+                     switch (choice)
+                         {
+                            case 1: AddComputers(); break;
+                           // case 2: UpdateComputer(); break;
+                           // case 3: SearchByBrand(); break;
+                           // case 4: SearchByPrice(); break;
+                            case 5: Console.WriteLine("Exiting program. Goodbye!"); break;
+                        }
                 }
 
             } while(choice != 5);
 
 
         }
+        static bool Authenticate()
+    {
+        int attempts = 3;
+        while (attempts > 0)
+        {
+            Console.Write("Enter password: ");
+            string input = Console.ReadLine();
+            if (input == PASSWORD) return true;
+            attempts--;
+            Console.WriteLine($"Incorrect password. {attempts} attempts remaining.");
+        }
+        return false;
+    }
+
+    static void AddComputers()
+    {
+        if (!Authenticate()) return;
+
+        Console.Write("How many computers do you want to add? ");
+        int count = int.Parse(Console.ReadLine());
+
+        int availableSpace = 0;
+        foreach (var comp in inventory) if (comp == null) availableSpace++;
+        
+        if (count > availableSpace)
+        {
+            Console.WriteLine($"Not enough space! You can only add {availableSpace} more computers.");
+            return;
+        }
+
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] == null && count > 0)
+            {
+                Console.Write("Enter brand: ");
+                string brand = Console.ReadLine();
+                Console.Write("Enter model: ");
+                string model = Console.ReadLine();
+                Console.Write("Enter serial number: ");
+                long SN = long.Parse(Console.ReadLine());
+                Console.Write("Enter price: ");
+                double price = double.Parse(Console.ReadLine());
+
+                inventory[i] = new Computer(brand, model, price, SN);
+                count--;
+                Console.WriteLine("Computer added successfully!");
+            }
+        }
+    }
     
 }

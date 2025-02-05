@@ -12,3 +12,4 @@
 /Users/pargolposhtareh/Desktop/class4/obj/Debug/net9.0/class4.pdb
 /Users/pargolposhtareh/Desktop/class4/obj/Debug/net9.0/class4.genruntimeconfig.cache
 /Users/pargolposhtareh/Desktop/class4/obj/Debug/net9.0/ref/class4.dll
+/Users/pargolposhtareh/Desktop/class4/obj/Debug/net9.0/class4.sourcelink.json
